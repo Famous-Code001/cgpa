@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator | Track Your Academic Success</title>
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+</head>
+<body>
+
+    <main class="landing-container">
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="badge">Academic Excellence Made Simple</span>
+                <h1>Master Your Grades with <span class="text-gradient">CGPA Calc</span></h1>
+                <p>The ultimate tool for students to track semester performance, calculate GPA instantly, and plan for a better academic future.</p>
+                
+                <div class="cta-buttons">
+                    <a href="/signup/" class="btn btn-primary">Get Started — It's Free</a>
+                    <a href="/login/" class="btn btn-outline">Login to Dashboard</a>
+                </div>
+            </div>
+
+            <!-- OPTIONAL: VISUAL ELEMENT -->
+            <div class="hero-visual">
+                <div class="abstract-shape"></div>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Instant Calculation</h3>
+                <p>Input your units and scores to see your results in real-time with zero lag.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🛡️</div>
+                <h3>Secure Accounts</h3>
+                <p>Your academic data is private and tied safely to your personal account.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📱</div>
+                <h3>Fully Responsive</h3>
+                <p>Check your standing from your laptop, tablet, or smartphone anywhere.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <p>&copy; 2026 CGPA Calculator. Designed for Students.</p>
+    </footer>
+
+</body>
+</html>

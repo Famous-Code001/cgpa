@@ -1,0 +1,28 @@
+from django.db import models 
+from django.contrib.auth.models import User
+
+# Create your models here.
+class CGPARecord(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    semester = models.CharField(max_length=20)
+    cgpa = models.FloatField()
+    total_units = models.IntegerField()
+    total_credit_points = models.FloatField()
+    created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.semester} - CGPA: {self.cgpa}"
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+    

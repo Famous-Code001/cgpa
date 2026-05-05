@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CGPA Calculator</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body class="auth-page">
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <header class="auth-header">
+                <h2>Welcome Back</h2>
+                <p>Login to manage your academic records</p>
+            </header>
+
+            <form method="POST" class="auth-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <!-- LOGIN FEEDBACK -->
+                {% if error %}
+                    <div class="message error-message">
+                        {{ error }}
+                    </div>
+                {% endif %}
+
+                {% if success %}
+                    <div class="message success-message">
+                        {{ success }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="btn-submit">Login</button>
+            </form>
+
+            <footer class="auth-footer">
+                <p>No account? <a href="/signup/">Sign Up</a></p>
+            </footer>
+        </div>
+        
+        <div class="back-link">
+            <a href="/">← Back to landing page</a>
+        </div>
+    </div>
+
+</body>
+</html>
