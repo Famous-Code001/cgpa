@@ -32,65 +32,62 @@ def landing(request):
 @login_required
 def home(request):
     context = {
-        "cgpa": None
+        "cgpa": None,
+        "records": [],
     }
 
+    # --- CALCULATION PART (UNCHANGED) ---
     if request.method == "POST" and request.POST.get("action") == "calculate":
+        units = request.POST.getlist("units[]")
+        scores = request.POST.getlist("scores[]")
+
         try:
-            units = request.POST.getlist("units[]")
-            scores = request.POST.getlist("scores[]")
-
-            if not units or not scores:
-                raise ValueError("No data submitted.")
-
-            if len(units) != len(scores):
-                raise ValueError("Mismatched units and scores.")
-
             total_units = 0
             total_credit_points = 0
 
             for u, s in zip(units, scores):
-                try:
-                    u = int(u)
-                    s = int(s)
-                except (ValueError, TypeError):
-                    raise ValueError("All inputs must be valid numbers.")
-
-                if u < 1:
-                    raise ValueError("Units must be at least 1.")
+                u = int(u)
+                s = int(s)
 
                 gp = get_grade_point(s)
 
                 total_units += u
                 total_credit_points += u * gp
 
-            if total_units == 0:
-                raise ValueError("Total units cannot be zero.")
-
             cgpa = round(total_credit_points / total_units, 2)
+            semester = request.POST.get("semester", "Current Semester")
 
             CGPARecord.objects.create(
                 user=request.user,
-                semester=request.POST.get("semester", "Current Semester"),
+                semester=semester,
                 cgpa=cgpa,
                 total_units=total_units,
-                total_credit_points=total_credit_points
+                total_credit_points=total_credit_points,
             )
 
-            context.update({
-                "cgpa": cgpa,
+            request.session["last_result"] = {
+                "cgpa": str(cgpa),
                 "total_units": total_units,
-                "total_credit_points": total_credit_points
-            })
+                "total_credit_points": str(total_credit_points),
+                "semester": semester,
+            }
 
-        except ValueError as e:
-            context["error"] = str(e)
+            return redirect("home")
 
         except Exception as e:
             context["error"] = str(e)
 
-    return render(request, "index.html", context)
+    # --- SHOW LAST RESULT ---
+    last_result = request.session.pop("last_result", None)
+    if last_result:
+        context.update(last_result)
 
+    # --- IMPORTANT: LOAD USER HISTORY ---
+    context["records"] = CGPARecord.objects.filter(
+        user=request.user
+    ).order_by("-created_at")
+
+    return render(request, "index.html", context)
 
 def signup(request):
     if request.method == "POST":
