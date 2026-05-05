@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+
+# Django
+db.sqlite3
+*.log
+
+# Environment variables (LOCAL ONLY)
+.env
+
+# Virtual environment
+venv/
+env/
+
+# VS Code
+.vscode/
+
+# Mac/Linux
+.DS_Store
+
+# Static files (optional if using collectstatic)
+staticfiles/

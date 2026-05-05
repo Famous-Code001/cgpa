@@ -1,0 +1,1 @@
+web: gunicorn cgpa_project.wsgi
