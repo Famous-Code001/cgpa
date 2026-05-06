@@ -4,7 +4,7 @@ import dj_database_url
 from dotenv import load_dotenv
 
 # Base directory of the project
-BASE_DIR = Path(file).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load local environment variables (development only; ignored in production platforms)
 load_dotenv(BASE_DIR / ".env")
